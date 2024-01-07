@@ -1,5 +1,4 @@
 #include <iostream>
-#include <limits>
 #include <iomanip>
 #include <string>
 #include <algorithm>
@@ -12,13 +11,10 @@ using namespace std;
 // List Definition
 
 // Determine User Type
-bool takeLogin()
+int takeListInput(int max)
 {
-    cout << "Are you a user or an administrator?" << endl;
-    cout << "1. User" << endl;
-    cout << "2. Administrator" << endl
-         << endl;
 
+    cout << endl;
     cout << "Your answer: ";
 
     int answer;
@@ -26,14 +22,14 @@ L1:
     cin >> answer;
 
     // Input Validation
-    if (answer != 1 && answer != 2)
+    if (!(answer >= 1 && answer <= max))
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "Please enter a valid answer: ";
         goto L1;
     }
-    return answer - 1;
+    return answer;
 }
 
 void printLogo()
@@ -50,14 +46,67 @@ void printLogo()
 int main() // TODO:
 {
     List movieList;
+    printLogo();
     movieList.readTextFile();
+    cout << endl;
+    cout << "Are you a user or an administrator?" << endl;
+    cout << "1. User" << endl;
+    cout << "2. Administrator" << endl;
 
-    bool isAdmin = takeLogin(); // User Type
+    bool isAdmin = takeListInput(2); // User Type
 
     if (isAdmin)
         goto ADMIN;
-
     return 0;
+
+    system("CLS");
+
+    printLogo();
+
+    cout << "What would you like to do?" << endl;
+    cout << endl;
+
+    cout << "1. View all movies" << endl;
+    cout << "2. Search for a specific movie" << endl;
+
+    if (takeListInput(2) == 1)
+    {
+        cout << "How would you like to view the list of movies?" << endl;
+        cout << endl;
+
+        cout << "1. Alphabetical sort" << endl;
+        cout << "2. Sort based on rating" << endl;
+        cout << "3. Sort based on length" << endl;
+        cout << "4. Sort based on year released" << endl;
+        cout << "5. Sort based on genre" << endl;
+
+        switch (takeListInput(5))
+        {
+        case 1:
+            movieList.sort_Alphabetical();
+            break;
+        case 2:
+            movieList.sort_Rating();
+            break;
+        case 3:
+            movieList.sort_Length();
+            break;
+        case 4:
+            movieList.sort_ReleaseYear();
+            break;
+        default:
+            movieList.sort_Genre();
+        }
+    }
+    else
+    {
+        cout << endl;
+        cout << "Enter movie title: ";
+        string input;
+        getline(cin, input);
+        cout << endl;
+        movieList.readMovie(input);
+    }
 
 ADMIN:
     cout << "Choose what you'd like to do!" << endl;
@@ -120,5 +169,4 @@ ADMIN:
     }
 
     return 0;
-    //
 }

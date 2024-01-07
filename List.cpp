@@ -1,5 +1,4 @@
 #include <iostream>
-#include <limits>
 #include <iomanip>
 #include <string>
 #include <algorithm>
@@ -76,7 +75,7 @@ public:
         }
     }
     void addMovie(Node *_movie) {}
-    Node readMovie(string _movieTitle)
+    void readMovie(string _movieTitle)
     {
 
         Node *current = head;
@@ -86,7 +85,6 @@ public:
         {
             if (current->getTitle() == _movieTitle)
             {
-                cout << "Movie found:" << endl;
                 cout << "Title: " << current->getTitle() << endl;
                 cout << "Length: " << current->getLength() << " minutes" << endl;
                 cout << "Release Year: " << current->getReleaseYear() << endl;
