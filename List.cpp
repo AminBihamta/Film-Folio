@@ -40,93 +40,13 @@ public:
             addMovie(movieNode);
         }
     }
-    void sort_Alphabetical()
-    {
-        if (head == nullptr)
-        {
-            // Handle empty list case
-            return;
-        }
-
-        Node *current = head;
-        Node *next;
-
-        while (current != nullptr)
-        {
-            next = current->next;
-            while (next != nullptr)
-            {
-                if (current->movieTitle > next->movieTitle)
-                {
-                    // Swap movie data
-                    swap(current->movieTitle, next->movieTitle);
-                    swap(current->movieLengthMinuets, next->movieLengthMinuets);
-                    swap(current->movieReleaseYear, next->movieReleaseYear);
-                    swap(current->movieGenre, next->movieGenre);
-                    swap(current->movieRating, next->movieRating);
-                }
-                next = next->next;
-            }
-            current = current->next;
-        }
-    }
+    void sort_Alphabetical() {}
     void sort_Rating() {}
     void sort_Length()
     {
-        // Implement sorting based on movieLengthMinuets in ascending order
-        if (head == nullptr)
-        {
-            return;
-        }
-
-        Node *current = head;
-        Node *next;
-
-        while (current != nullptr)
-        {
-            next = current->next;
-            while (next != nullptr)
-            {
-                if (current->movieLengthMinuets > next->movieLengthMinuets)
-                {
-                    swap(current->movieTitle, next->movieTitle);
-                    swap(current->movieLengthMinuets, next->movieLengthMinuets);
-                    swap(current->movieReleaseYear, next->movieReleaseYear);
-                    swap(current->movieGenre, next->movieGenre);
-                    swap(current->movieRating, next->movieRating);
-                }
-                next = next->next;
-            }
-            current = current->next;
-        }
     }
     void sort_ReleaseYear()
     {
-        if (head == nullptr)
-        {
-            return;
-        }
-
-        Node *current = head;
-        Node *next;
-
-        while (current != nullptr)
-        {
-            next = current->next;
-            while (next != nullptr)
-            {
-                if (current->movieReleaseYear > next->movieReleaseYear)
-                {
-                    swap(current->movieTitle, next->movieTitle);
-                    swap(current->movieLengthMinuets, next->movieLengthMinuets);
-                    swap(current->movieReleaseYear, next->movieReleaseYear);
-                    swap(current->movieGenre, next->movieGenre);
-                    swap(current->movieRating, next->movieRating);
-                }
-                next = next->next;
-            }
-            current = current->next;
-        }
     }
     void sort_Genre()
     {
