@@ -101,8 +101,8 @@ public:
             cout << "Movie not found!" << endl;
         }
 
-    }                                     // This function returns a movie node
-    int updateMovie(string _movieName) {} // This function returns -1 if update was unsuccessful
+    }                                                 // This function returns a movie node
+    int updateMovie(string _movieName) { return -1; } // This function returns -1 if update was unsuccessful
     int deleteMovie(string _movieTitle)
     {
 
