@@ -3,7 +3,6 @@
 #include <string>
 #include <algorithm>
 #include <fstream>
-#include "Node.cpp"
 #include "List.cpp"
 
 using namespace std;
@@ -34,6 +33,7 @@ L1:
 
 void printLogo()
 {
+    system("cls");
     std::cout << "      ::::::::::       :::::::::::       :::          :::   :::        ::::::::::       ::::::::       :::        :::::::::::       ::::::::\n"
                  "     :+:                  :+:           :+:         :+:+: :+:+:       :+:             :+:    :+:      :+:            :+:          :+:    :+: \n"
                  "    +:+                  +:+           +:+        +:+ +:+:+ +:+      +:+             +:+    +:+      +:+            +:+          +:+    +:+  \n"
@@ -53,13 +53,8 @@ int main() // TODO:
     cout << "1. User" << endl;
     cout << "2. Administrator" << endl;
 
-    bool isAdmin = takeListInput(2); // User Type
-
-    if (isAdmin)
+    if (takeListInput(2) == 2)
         goto ADMIN;
-    return 0;
-
-    system("CLS");
 
     printLogo();
 
@@ -109,6 +104,7 @@ int main() // TODO:
     }
 
 ADMIN:
+    printLogo();
     cout << "Choose what you'd like to do!" << endl;
     cout << endl;
     cout << "1. Add Movie" << endl;
@@ -116,15 +112,13 @@ ADMIN:
     cout << "3. Delete Movie" << endl;
     cout << endl;
     cout << "Your answer: " << endl;
-    char choice;
-    cin >> choice;
-    cin.clear();
-    cin.ignore();
 
-    switch (choice)
+    switch (takeListInput(3))
     {
     case 1:
     {
+        system("cls");
+
         string _movieTitle;
         int _movieLengthMinuets;
         int _movieReleaseYear;

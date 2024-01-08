@@ -38,6 +38,8 @@ public:
             Node *movieNode = new Node(_movieTitle, _movieLengthMinuets, _movieReleaseYear, _movieGenre, _movieRating);
             addMovie(movieNode);
         }
+
+        return 1;
     }
     void sort_Alphabetical() {}
     void sort_Rating() {}
