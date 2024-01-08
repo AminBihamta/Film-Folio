@@ -12,7 +12,6 @@ using namespace std;
 // Determine User Type
 int takeListInput(int max)
 {
-
     cout << endl;
     cout << "Your answer: ";
 

@@ -75,6 +75,8 @@ public:
 
             current = current->next;
         }
+
+        updateTextFile();
     }
     void addMovie(Node *_movie) {}
     void readMovie(string _movieTitle)
@@ -128,12 +130,25 @@ public:
                 head = current->next;
             }
             delete current;
+            updateTextFile();
             return 1; // Successfully Deleted
         }
         return -1;
 
     } // Should return -1 if deletion is unsuccessful
     void readAllMovies() {}
-    void updateTextFile() {} // TODO:
-    ~List() {}               // TODO:
+    void updateTextFile()
+    {
+        fstream outFile("movieDatabase.txt, ios::out");
+        Node *current = head;
+        while (current)
+        {
+            outFile << current->getTitle() << endl;
+            outFile << current->getLength() << endl;
+            outFile << current->getReleaseYear() << endl;
+            outFile << current->getGenre() << endl;
+            outFile << current->getRating() << endl;
+        }
+    }
+    ~List() {} // TODO:
 };
