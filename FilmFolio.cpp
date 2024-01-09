@@ -7,10 +7,7 @@
 
 using namespace std;
 
-// List Definition
-
-// Determine User Type
-int takeListInput(int max)
+int takeListInput(int max) // Determine user type
 {
     cout << endl;
     cout << "Your answer: ";
@@ -42,7 +39,7 @@ void printLogo()
                  "###              ###########       ########## ###       ###      ###              ########       ########## ###########       ########      \n";
 }
 
-int main() // TODO:
+int main()
 {
     List movieList;
     printLogo();
@@ -65,6 +62,8 @@ int main() // TODO:
 
     if (takeListInput(2) == 1)
     {
+        printLogo();
+
         cout << "How would you like to view the list of movies?" << endl;
         cout << endl;
 
@@ -77,23 +76,35 @@ int main() // TODO:
         switch (takeListInput(5))
         {
         case 1:
+            printLogo();
+
             movieList.sort_Alphabetical();
             break;
         case 2:
+            printLogo();
+
             movieList.sort_Rating();
             break;
         case 3:
+            printLogo();
+
             movieList.sort_Length();
             break;
         case 4:
+            printLogo();
+
             movieList.sort_ReleaseYear();
             break;
         default:
+            printLogo();
+
             movieList.sort_Genre();
         }
     }
     else
     {
+        printLogo();
+
         cout << endl;
         cout << "Enter movie title: ";
         string input;
@@ -101,6 +112,7 @@ int main() // TODO:
         cout << endl;
         movieList.readMovie(input);
     }
+    return 0;
 
 ADMIN:
     printLogo();
@@ -116,7 +128,7 @@ ADMIN:
     {
     case 1:
     {
-        system("cls");
+        printLogo();
 
         string _movieTitle;
         int _movieLengthMinuets;
@@ -141,23 +153,40 @@ ADMIN:
     }
     case 2:
     {
+        printLogo();
         string _movieTitle;
         int choice;
 
         cout << "Enter movie title: ";
         getline(cin, _movieTitle);
 
-        movieList.updateMovie(_movieTitle);
+        if (movieList.updateMovie(_movieTitle) == -1)
+        {
+            cout << "Updating movie was unsuccessful" << endl;
+        }
+        else
+        {
+            cout << "Movie successfully updated" << endl;
+        }
         break;
     }
     case 3:
+        printLogo();
+
         string _movieTitle;
         int choice;
 
         cout << "Enter movie title: ";
         getline(cin, _movieTitle);
 
-        movieList.deleteMovie(_movieTitle);
+        if (movieList.deleteMovie(_movieTitle) == -1)
+        {
+            cout << "Deleting movie was unsuccessful" << endl;
+        }
+        else
+        {
+            cout << "Movie successfully deleted" << endl;
+        }
         break;
     }
 

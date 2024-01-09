@@ -133,9 +133,8 @@ public:
             updateTextFile();
             return 1; // Successfully Deleted
         }
-        return -1;
-
-    } // Should return -1 if deletion is unsuccessful
+        return -1; // Unsuccessful deletion
+    }
     void readAllMovies() {}
     void updateTextFile()
     {
@@ -150,5 +149,13 @@ public:
             outFile << current->getRating() << endl;
         }
     }
-    ~List() {} // TODO:
+    ~List()
+    {
+        while (head)
+        {
+            Node *temp = head;
+            head = head->next;
+            delete temp;
+        }
+    }
 };
