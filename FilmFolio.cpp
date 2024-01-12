@@ -120,9 +120,6 @@ ADMIN:
     cout << "1. Add Movie" << endl;
     cout << "2. Update Movie" << endl;
     cout << "3. Delete Movie" << endl;
-    cout << endl;
-    cout << "Your answer: " << endl;
-
     switch (takeListInput(3))
     {
     case 1:
