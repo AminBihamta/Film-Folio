@@ -92,8 +92,33 @@ public:
     void sort_Length() // TODO:
     {
     }
-    void sort_ReleaseYear()
+    void sort_ReleaseYear() // TODO:
     {
+        if (head == nullptr)
+        {
+            return;
+        }
+
+        Node *current = head;
+        Node *next;
+
+        while (current != nullptr)
+        {
+            next = current->next;
+            while (next != nullptr)
+            {
+                if (current->getReleaseYear() > next->getReleaseYear())
+                {
+                    swap(current->getTitle(), next->getTitle());
+                    swap(current->getLength(), next->getLength());
+                    swap(current->getReleaseYear(), next->getReleaseYear());
+                    swap(current->getGenre(), next->getGenre());
+                    swap(current->getRating(), next->getRating());
+                }
+                next = next->next;
+            }
+            current = current->next;
+        }
     }
     void sort_Genre()
     {
