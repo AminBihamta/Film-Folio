@@ -37,6 +37,7 @@ void printLogo()
                  "  +#+                  +#+           +#+        +#+       +#+      +#+             +#+    +#+      +#+            +#+          +#+    +#+    \n"
                  " #+#                  #+#           #+#        #+#       #+#      #+#             #+#    #+#      #+#            #+#          #+#    #+#     \n"
                  "###              ###########       ########## ###       ###      ###              ########       ########## ###########       ########      \n";
+    cout << endl;
 }
 
 int main()
@@ -163,6 +164,8 @@ ADMIN:
         printLogo();
         string _movieTitle;
         int choice;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         cout << "Enter movie title: ";
         getline(cin, _movieTitle);

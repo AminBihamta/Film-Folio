@@ -55,8 +55,41 @@ public:
         return 1;
     }
     void sort_Alphabetical() {} // TODO:
-    void sort_Rating() {}       // TODO:
-    void sort_Length()          // TODO:
+    void sort_Rating()
+    {
+        Node *current = head;
+        Node *index = nullptr;
+
+        if (!head)
+        {
+            return; // Empty list
+        }
+
+        // Bubble sort algorithm for sorting based on rating in descending order
+        while (current != nullptr)
+        {
+            index = current->next;
+
+            while (index != nullptr)
+            {
+                // Compare ratings and swap if needed
+                if (current->getRating() < index->getRating())
+                {
+                    // Swap only the rating information, not entire nodes
+                    float tempRating = current->getRating();
+                    current->setRating(index->getRating());
+                    index->setRating(tempRating);
+                }
+
+                index = index->next;
+            }
+
+            current = current->next;
+        }
+
+        readAllMovies();
+    }
+    void sort_Length() // TODO:
     {
     }
     void sort_ReleaseYear()
@@ -139,59 +172,67 @@ public:
     int updateMovie(string _movieTitle)
     {
         Node *current = head;
-        bool found = false;
 
-        while (current != nullptr)
+        if (current == nullptr)
+            return -1;
+
+        while (current->getTitle() != _movieTitle)
         {
-            if (current->getTitle() == _movieTitle)
-            {
-                cout << "Current details:" << endl;
-                cout << "Title: " << current->getTitle() << endl;
-                cout << "Length: " << current->getLength() << " minutes" << endl;
-                cout << "Release Year: " << current->getReleaseYear() << endl;
-                cout << "Genre: " << current->getGenre() << endl;
-                cout << "Rating: " << current->getRating() << endl;
-
-                cout << "Enter new details:" << endl;
-                cout << "Title: ";
-                getline(cin, _movieTitle);
-                current->setTitle(_movieTitle);
-
-                int _movieLengthMinutes;
-                cout << "Length (in minutes): ";
-                cin >> _movieLengthMinutes;
-                current->setLength(_movieLengthMinutes);
-
-                int _movieReleaseYear;
-                cout << "Release Year: ";
-                cin >> _movieReleaseYear;
-                current->setReleaseYear(_movieReleaseYear);
-
-                cin.ignore();
-                string _movieGenre;
-                cout << "Genre: ";
-                getline(cin, _movieGenre);
-                current->setGenre(_movieGenre);
-
-                float _movieRating;
-                cout << "Rating: ";
-                cin >> _movieRating;
-                current->setRating(_movieRating);
-
-                cout << "Movie updated successfully!" << endl;
-                updateTextFile();
-                found = true;
-                break;
-            }
             current = current->next;
         }
-
-        if (!found)
-        {
-            cout << "Movie not found!" << endl;
+        if (current->getTitle() != _movieTitle)
             return -1;
-        }
 
+        cout << "What would you like to update? " << endl
+             << endl;
+
+        cout << "1. Title" << endl;
+        cout << "2. Length" << endl;
+        cout << "3. Release Year" << endl;
+        cout << "4. Genre" << endl;
+        cout << "5. Rating" << endl;
+
+        cout << endl;
+        cout << "Your answer: ";
+
+        int answer;
+    L1:
+        cin >> answer;
+
+        // Input Validation
+        if (!(answer >= 1 && answer <= 5))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Please enter a valid answer: ";
+            goto L1;
+        }
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        cout << "Enter the updated value: ";
+        string input;
+        getline(cin, input);
+
+        switch (answer)
+        {
+        case 1:
+            current->setTitle(input);
+            break;
+        case 2:
+            current->setLength(stoi(input));
+            break;
+        case 3:
+            current->setReleaseYear(stoi(input));
+            break;
+        case 4:
+            current->setGenre(input);
+            break;
+        case 5:
+            current->setRating(stof(input));
+            break;
+        }
+        updateTextFile();
         return 1;
     }
     int deleteMovie(string _movieTitle)
