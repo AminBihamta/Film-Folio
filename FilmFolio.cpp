@@ -134,16 +134,23 @@ ADMIN:
         int _movieReleaseYear;
         string _movieGenre;
         float _movieRating;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
         cout << "Enter movie title: ";
+
         getline(cin, _movieTitle);
 
         cout << "Enter movie length: ";
+
         cin >> _movieLengthMinuets;
 
         cout << "Enter movie release year: ";
+
         cin >> _movieReleaseYear;
 
         cout << "Enter movie rating: ";
+
         cin >> _movieRating;
 
         Node *movieNode = new Node(_movieTitle, _movieLengthMinuets, _movieReleaseYear, _movieGenre, _movieRating);

@@ -12,10 +12,8 @@ private:
     Node *head;
 
 public:
-    List()
-    {
-        head == nullptr;
-    }
+    List() : head(nullptr) {}
+
     int readTextFile()
     {
         fstream fileInput("movieDatabase.txt", ios::in);
@@ -41,7 +39,7 @@ public:
             Node *movieNode = new Node(_movieTitle, _movieLengthMinuets, _movieReleaseYear, _movieGenre, _movieRating);
             createMovie(movieNode);
         }
-
+        fileInput.close();
         return 1;
     }
     void sort_Alphabetical() {} // TODO:
@@ -83,6 +81,20 @@ public:
     }
     void createMovie(Node *_movie)
     {
+        if (head == nullptr)
+        {
+            head = _movie;
+        }
+        else
+        {
+            Node *current = head;
+            while (head->next)
+            {
+                current = current->next;
+            }
+            current->next = _movie;
+        }
+        updateTextFile();
     }
     void readMovie(string _movieTitle)
     {
@@ -221,8 +233,11 @@ public:
             outFile << current->getReleaseYear() << endl;
             outFile << current->getGenre() << endl;
             outFile << current->getRating() << endl;
+            current = current->next;
         }
+        outFile.close();
     }
+
     ~List()
     {
         while (head)
