@@ -37,7 +37,19 @@ public:
             _movieRating = stof(tempInput);
 
             Node *movieNode = new Node(_movieTitle, _movieLengthMinuets, _movieReleaseYear, _movieGenre, _movieRating);
-            createMovie(movieNode);
+            if (head == nullptr)
+            {
+                head = movieNode;
+            }
+            else
+            {
+                Node *current = head;
+                while (current->next)
+                {
+                    current = current->next;
+                }
+                current->next = movieNode;
+            }
         }
         fileInput.close();
         return 1;
@@ -79,7 +91,7 @@ public:
 
         updateTextFile();
     }
-    void createMovie(Node *_movie)
+    int createMovie(Node *_movie)
     {
         if (head == nullptr)
         {
@@ -88,13 +100,14 @@ public:
         else
         {
             Node *current = head;
-            while (head->next)
+            while (current->next)
             {
                 current = current->next;
             }
             current->next = _movie;
         }
         updateTextFile();
+        return 1;
     }
     void readMovie(string _movieTitle)
     {
@@ -214,17 +227,18 @@ public:
         Node *current = head;
         while (current)
         {
-            cout << "Title:" << current->getTitle() << endl;
+            cout << "Title: " << current->getTitle() << endl;
             cout << "Length: " << current->getLength() << endl;
             cout << "Release Year: " << current->getReleaseYear() << endl;
             cout << "Genre: " << current->getGenre() << endl;
             cout << "Rating: " << current->getRating() << "/10" << endl;
             current = current->next;
+            cout << endl;
         }
     }
     void updateTextFile()
     {
-        fstream outFile("movieDatabase.txt, ios::out");
+        fstream outFile("movieDatabase.txt", ios::out);
         Node *current = head;
         while (current)
         {
@@ -232,7 +246,10 @@ public:
             outFile << current->getLength() << endl;
             outFile << current->getReleaseYear() << endl;
             outFile << current->getGenre() << endl;
-            outFile << current->getRating() << endl;
+            outFile << current->getRating();
+
+            if (current->next)
+                outFile << endl;
             current = current->next;
         }
         outFile.close();

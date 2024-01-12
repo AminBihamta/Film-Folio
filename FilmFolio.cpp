@@ -149,12 +149,16 @@ ADMIN:
 
         cin >> _movieReleaseYear;
 
+        cout << "Enter movie genre: " << endl;
+        cin >> _movieGenre;
+
         cout << "Enter movie rating: ";
 
         cin >> _movieRating;
 
         Node *movieNode = new Node(_movieTitle, _movieLengthMinuets, _movieReleaseYear, _movieGenre, _movieRating);
-        movieList.createMovie(movieNode);
+        if (movieList.createMovie(movieNode))
+            cout << "Movie added successfully" << endl;
         break;
     }
     case 2:
