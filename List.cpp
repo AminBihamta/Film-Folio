@@ -12,7 +12,10 @@ private:
     Node *head;
 
 public:
-    List() {}
+    List()
+    {
+        head == nullptr;
+    }
     int readTextFile()
     {
         fstream fileInput("movieDatabase.txt", ios::in);
@@ -36,14 +39,14 @@ public:
             _movieRating = stof(tempInput);
 
             Node *movieNode = new Node(_movieTitle, _movieLengthMinuets, _movieReleaseYear, _movieGenre, _movieRating);
-            addMovie(movieNode);
+            createMovie(movieNode);
         }
 
         return 1;
     }
-    void sort_Alphabetical() {}
-    void sort_Rating() {}
-    void sort_Length()
+    void sort_Alphabetical() {} // TODO:
+    void sort_Rating() {}       // TODO:
+    void sort_Length()          // TODO:
     {
     }
     void sort_ReleaseYear()
@@ -78,7 +81,9 @@ public:
 
         updateTextFile();
     }
-    void addMovie(Node *_movie) {}
+    void createMovie(Node *_movie)
+    {
+    }
     void readMovie(string _movieTitle)
     {
 
@@ -105,8 +110,65 @@ public:
             cout << "Movie not found!" << endl;
         }
 
-    }                                                 // This function returns a movie node
-    int updateMovie(string _movieName) { return -1; } // This function returns -1 if update was unsuccessful
+    } // This function returns a movie node
+    int updateMovie(string _movieTitle)
+    {
+        Node *current = head;
+        bool found = false;
+
+        while (current != nullptr)
+        {
+            if (current->getTitle() == _movieTitle)
+            {
+                cout << "Current details:" << endl;
+                cout << "Title: " << current->getTitle() << endl;
+                cout << "Length: " << current->getLength() << " minutes" << endl;
+                cout << "Release Year: " << current->getReleaseYear() << endl;
+                cout << "Genre: " << current->getGenre() << endl;
+                cout << "Rating: " << current->getRating() << endl;
+
+                cout << "Enter new details:" << endl;
+                cout << "Title: ";
+                getline(cin, _movieTitle);
+                current->setTitle(_movieTitle);
+
+                int _movieLengthMinutes;
+                cout << "Length (in minutes): ";
+                cin >> _movieLengthMinutes;
+                current->setLength(_movieLengthMinutes);
+
+                int _movieReleaseYear;
+                cout << "Release Year: ";
+                cin >> _movieReleaseYear;
+                current->setReleaseYear(_movieReleaseYear);
+
+                cin.ignore();
+                string _movieGenre;
+                cout << "Genre: ";
+                getline(cin, _movieGenre);
+                current->setGenre(_movieGenre);
+
+                float _movieRating;
+                cout << "Rating: ";
+                cin >> _movieRating;
+                current->setRating(_movieRating);
+
+                cout << "Movie updated successfully!" << endl;
+                updateTextFile();
+                found = true;
+                break;
+            }
+            current = current->next;
+        }
+
+        if (!found)
+        {
+            cout << "Movie not found!" << endl;
+            return -1;
+        }
+
+        return 1;
+    }
     int deleteMovie(string _movieTitle)
     {
 
@@ -135,7 +197,19 @@ public:
         }
         return -1; // Unsuccessful deletion
     }
-    void readAllMovies() {}
+    void readAllMovies()
+    {
+        Node *current = head;
+        while (current)
+        {
+            cout << "Title:" << current->getTitle() << endl;
+            cout << "Length: " << current->getLength() << endl;
+            cout << "Release Year: " << current->getReleaseYear() << endl;
+            cout << "Genre: " << current->getGenre() << endl;
+            cout << "Rating: " << current->getRating() << "/10" << endl;
+            current = current->next;
+        }
+    }
     void updateTextFile()
     {
         fstream outFile("movieDatabase.txt, ios::out");

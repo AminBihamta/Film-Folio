@@ -77,8 +77,7 @@ int main()
         {
         case 1:
             printLogo();
-
-            movieList.sort_Alphabetical();
+            movieList.readAllMovies();
             break;
         case 2:
             printLogo();
@@ -148,7 +147,7 @@ ADMIN:
         cin >> _movieRating;
 
         Node *movieNode = new Node(_movieTitle, _movieLengthMinuets, _movieReleaseYear, _movieGenre, _movieRating);
-        movieList.addMovie(movieNode);
+        movieList.createMovie(movieNode);
         break;
     }
     case 2:
