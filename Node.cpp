@@ -39,5 +39,5 @@ public:
     int getLength() const { return movieLengthMinutes; }
     int getReleaseYear() const { return movieReleaseYear; }
     string getGenre() const { return movieGenre; }
-    int getRating() const { return movieRating; }
+    float getRating() const { return movieRating; }
 };

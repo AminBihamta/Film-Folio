@@ -54,7 +54,38 @@ public:
         fileInput.close();
         return 1;
     }
-    void sort_Alphabetical() {} // TODO:
+    void sort_Alphabetical()
+    {
+        if (head == nullptr)
+        {
+            return;
+        }
+
+        Node *current = head;
+
+        while (current != nullptr)
+        {
+            Node *minTitle = current;
+            Node *temp = current->next;
+
+            while (temp != nullptr)
+            {
+                // Compare title strings to find the minimum
+                if (temp->getTitle() < minTitle->getTitle())
+                {
+                    minTitle = temp;
+                }
+                temp = temp->next;
+            }
+
+            // Swap only the title information, not entire nodes
+            string tempTitle = current->getTitle();
+            current->setTitle(minTitle->getTitle());
+            minTitle->setTitle(tempTitle);
+
+            current = current->next;
+        }
+    }
     void sort_Rating()
     {
         Node *current = head;
@@ -86,13 +117,8 @@ public:
 
             current = current->next;
         }
-
-        readAllMovies();
     }
-    void sort_Length() // TODO:
-    {
-    }
-    void sort_ReleaseYear() // TODO:
+    void sort_Length()
     {
         if (head == nullptr)
         {
@@ -107,13 +133,41 @@ public:
             next = current->next;
             while (next != nullptr)
             {
-                if (current->getReleaseYear() > next->getReleaseYear())
+                // Compare and swap based on movie length
+                if (current->getLength() > next->getLength())
                 {
-                    swap(current->getTitle(), next->getTitle());
-                    swap(current->getLength(), next->getLength());
-                    swap(current->getReleaseYear(), next->getReleaseYear());
-                    swap(current->getGenre(), next->getGenre());
-                    swap(current->getRating(), next->getRating());
+                    // Swap only the length information, not entire nodes
+                    int tempLength = current->getLength();
+                    current->setLength(next->getLength());
+                    next->setLength(tempLength);
+                }
+                next = next->next;
+            }
+            current = current->next;
+        }
+    }
+    void sort_ReleaseYear()
+    {
+        if (head == nullptr)
+        {
+            return;
+        }
+
+        Node *current = head;
+        Node *next;
+
+        while (current != nullptr)
+        {
+            next = current->next;
+            while (next != nullptr)
+            {
+                // Compare and swap based on release year
+                if (current->getReleaseYear() < next->getReleaseYear())
+                {
+                    // Swap only the release year information, not entire nodes
+                    int tempReleaseYear = current->getReleaseYear();
+                    current->setReleaseYear(next->getReleaseYear());
+                    next->setReleaseYear(tempReleaseYear);
                 }
                 next = next->next;
             }
@@ -146,8 +200,6 @@ public:
 
             current = current->next;
         }
-
-        updateTextFile();
     }
     int createMovie(Node *_movie)
     {

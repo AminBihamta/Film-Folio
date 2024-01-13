@@ -43,8 +43,11 @@ void printLogo()
 int main()
 {
     List movieList;
-    printLogo();
     movieList.readTextFile();
+
+START:
+
+    printLogo();
     cout << endl;
     cout << "Are you a user or an administrator?" << endl;
     cout << "1. User" << endl;
@@ -78,27 +81,28 @@ int main()
         {
         case 1:
             printLogo();
+            movieList.sort_Alphabetical(); // TODO:
             movieList.readAllMovies();
             break;
         case 2:
             printLogo();
-
             movieList.sort_Rating();
+            movieList.readAllMovies();
             break;
         case 3:
             printLogo();
-
             movieList.sort_Length();
+            movieList.readAllMovies();
             break;
         case 4:
             printLogo();
-
             movieList.sort_ReleaseYear();
+            movieList.readAllMovies();
             break;
         default:
             printLogo();
-
             movieList.sort_Genre();
+            movieList.readAllMovies();
         }
     }
     else
@@ -112,7 +116,7 @@ int main()
         cout << endl;
         movieList.readMovie(input);
     }
-    return 0;
+    goto END;
 
 ADMIN:
     printLogo();
@@ -200,5 +204,13 @@ ADMIN:
         break;
     }
 
+END:
+    printLogo();
+    cout << "Would you like to exit the program?" << endl;
+    cout << "1. Yes" << endl;
+    cout << "2. No" << endl;
+
+    if (takeListInput(2) == 2)
+        goto START;
     return 0;
 }
