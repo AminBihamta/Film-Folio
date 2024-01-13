@@ -22,7 +22,7 @@ public:
         int _movieLengthMinuets;
         int _movieReleaseYear;
         string _movieGenre;
-        float _movieRating;
+        int _movieRating;
         string tempInput;
 
         while (!fileInput.eof())
@@ -34,7 +34,7 @@ public:
             _movieReleaseYear = stoi(tempInput);
             getline(fileInput, _movieGenre);
             getline(fileInput, tempInput);
-            _movieRating = stof(tempInput);
+            _movieRating = stoi(tempInput);
 
             Node *movieNode = new Node(_movieTitle, _movieLengthMinuets, _movieReleaseYear, _movieGenre, _movieRating);
             if (head == nullptr)
@@ -107,7 +107,7 @@ public:
                 if (current->getRating() < index->getRating())
                 {
                     // Swap only the rating information, not entire nodes
-                    float tempRating = current->getRating();
+                    int tempRating = current->getRating();
                     current->setRating(index->getRating());
                     index->setRating(tempRating);
                 }
@@ -253,12 +253,12 @@ public:
         if (current == nullptr)
             return -1;
 
-        while (current->getTitle() != _movieTitle)
+        while (current->getTitle() != _movieTitle && current->next != nullptr)
         {
             current = current->next;
         }
         if (current->getTitle() != _movieTitle)
-            return -1;
+            return 0;
 
         cout << "What would you like to update? " << endl
              << endl;
@@ -306,7 +306,7 @@ public:
             current->setGenre(input);
             break;
         case 5:
-            current->setRating(stof(input));
+            current->setRating(stoi(input));
             break;
         }
         updateTextFile();
@@ -343,13 +343,14 @@ public:
     void readAllMovies()
     {
         Node *current = head;
+
+        if (current->next == nullptr)
+        {
+            readMovie(current->getTitle());
+        }
         while (current)
         {
-            cout << "Title: " << current->getTitle() << endl;
-            cout << "Length: " << current->getLength() << endl;
-            cout << "Release Year: " << current->getReleaseYear() << endl;
-            cout << "Genre: " << current->getGenre() << endl;
-            cout << "Rating: " << current->getRating() << "/10" << endl;
+            readMovie(current->getTitle());
             current = current->next;
             cout << endl;
         }

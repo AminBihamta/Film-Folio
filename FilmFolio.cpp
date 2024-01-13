@@ -110,6 +110,9 @@ START:
         printLogo();
 
         cout << endl;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
         cout << "Enter movie title: ";
         string input;
         getline(cin, input);
@@ -151,7 +154,7 @@ ADMIN:
 
         cin >> _movieReleaseYear;
 
-        cout << "Enter movie genre: " << endl;
+        cout << "Enter movie genre: ";
         cin >> _movieGenre;
 
         cout << "Enter movie rating: ";
@@ -173,10 +176,17 @@ ADMIN:
 
         cout << "Enter movie title: ";
         getline(cin, _movieTitle);
+        cout << endl;
 
-        if (movieList.updateMovie(_movieTitle) == -1)
+        int wasSuccessful = movieList.updateMovie(_movieTitle);
+
+        if (wasSuccessful == -1)
         {
             cout << "Updating movie was unsuccessful" << endl;
+        }
+        else if (wasSuccessful == 0)
+        {
+            cout << "Movie not found!" << endl;
         }
         else
         {
