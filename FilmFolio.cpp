@@ -201,6 +201,9 @@ ADMIN:
         int choice;
 
         cout << "Enter movie title: ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
         getline(cin, _movieTitle);
 
         if (movieList.deleteMovie(_movieTitle) == -1)
