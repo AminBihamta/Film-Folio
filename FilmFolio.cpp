@@ -189,7 +189,8 @@ ADMIN:
 
         string _movieTitle;
         int choice;
-
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "Enter movie title: ";
         getline(cin, _movieTitle);
 

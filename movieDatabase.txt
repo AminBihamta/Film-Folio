@@ -3,16 +3,6 @@ The Dark Knight
 2008
 Action
 9
-The Matrix
-136
-1999
-Action
-8
-Interstellar
-130
-2014
-Action
-6
 City of God
 130
 2002
@@ -22,9 +12,4 @@ Back to the future
 116
 1985
 Action
-8
-The Lion King
-3000
-1994
-Drama
 8
