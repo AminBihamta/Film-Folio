@@ -176,7 +176,7 @@ ADMIN:
         int _movieLengthMinuets;
         int _movieReleaseYear;
         string _movieGenre;
-        float _movieRating;
+        int _movieRating;
         string input;
         clearInput();
 
@@ -185,11 +185,23 @@ ADMIN:
         _movieTitle = convertToPascalCase(input);
 
         cout << "Enter movie length: ";
+    LENGTH:
         cin >> input;
+        if (!isdigit(input[0]))
+        {
+            cout << "Invalid input! Please enter a number: ";
+            goto LENGTH;
+        }
         _movieLengthMinuets = stoi(input);
 
         cout << "Enter movie release year: ";
+    RELEASEYEAR:
         cin >> input;
+        if (!isdigit(input[0]))
+        {
+            cout << "Invalid input! Please enter a number: ";
+            goto RELEASEYEAR;
+        }
         _movieReleaseYear = stoi(input);
 
         clearInput();
@@ -198,7 +210,13 @@ ADMIN:
         _movieGenre = convertToPascalCase(input);
 
         cout << "Enter movie rating: ";
+    RATING:
         cin >> input;
+        if (!isdigit(input[0]))
+        {
+            cout << "Invalid input! Please enter a number: ";
+            goto RATING;
+        }
         _movieRating = stoi(input);
 
         Node *movieNode = new Node(_movieTitle, _movieLengthMinuets, _movieReleaseYear, _movieGenre, _movieRating);
