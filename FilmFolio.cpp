@@ -7,6 +7,46 @@
 
 using namespace std;
 
+string convertToPascalCase(string input)
+{
+    string pascalCaseString;
+
+    bool capitalizeNext = true;
+
+    for (char c : input)
+    {
+        if (std::isalpha(c))
+        {
+            if (capitalizeNext)
+            {
+                pascalCaseString += std::toupper(c);
+                capitalizeNext = false;
+            }
+            else
+            {
+                pascalCaseString += std::tolower(c);
+            }
+        }
+        else if (c == ' ')
+        {
+            pascalCaseString += ' ';
+            capitalizeNext = true;
+        }
+        else
+        {
+            pascalCaseString += c;
+        }
+    }
+
+    return pascalCaseString;
+}
+
+void clearInput()
+{
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
 int takeListInput(int max) // Determine user type
 {
     cout << endl;
@@ -81,7 +121,7 @@ START:
         {
         case 1:
             printLogo();
-            movieList.sort_Alphabetical(); // TODO:
+            movieList.sort_Alphabetical();
             movieList.readAllMovies();
             break;
         case 2:
@@ -110,14 +150,12 @@ START:
         printLogo();
 
         cout << endl;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
+        clearInput();
         cout << "Enter movie title: ";
         string input;
         getline(cin, input);
         cout << endl;
-        movieList.readMovie(input);
+        movieList.readMovie(convertToPascalCase(input));
     }
     goto END;
 
@@ -139,27 +177,29 @@ ADMIN:
         int _movieReleaseYear;
         string _movieGenre;
         float _movieRating;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        string input;
+        clearInput();
 
         cout << "Enter movie title: ";
-
-        getline(cin, _movieTitle);
+        getline(cin, input);
+        _movieTitle = convertToPascalCase(input);
 
         cout << "Enter movie length: ";
-
-        cin >> _movieLengthMinuets;
+        cin >> input;
+        _movieLengthMinuets = stoi(input);
 
         cout << "Enter movie release year: ";
+        cin >> input;
+        _movieReleaseYear = stoi(input);
 
-        cin >> _movieReleaseYear;
-
+        clearInput();
         cout << "Enter movie genre: ";
-        cin >> _movieGenre;
+        getline(cin, input);
+        _movieGenre = convertToPascalCase(input);
 
         cout << "Enter movie rating: ";
-
-        cin >> _movieRating;
+        cin >> input;
+        _movieRating = stoi(input);
 
         Node *movieNode = new Node(_movieTitle, _movieLengthMinuets, _movieReleaseYear, _movieGenre, _movieRating);
         if (movieList.createMovie(movieNode))
@@ -171,14 +211,12 @@ ADMIN:
         printLogo();
         string _movieTitle;
         int choice;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
+        clearInput();
         cout << "Enter movie title: ";
         getline(cin, _movieTitle);
         cout << endl;
 
-        int wasSuccessful = movieList.updateMovie(_movieTitle);
+        int wasSuccessful = movieList.updateMovie(convertToPascalCase(_movieTitle));
 
         if (wasSuccessful == -1)
         {
@@ -201,12 +239,10 @@ ADMIN:
         int choice;
 
         cout << "Enter movie title: ";
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
+        clearInput();
         getline(cin, _movieTitle);
 
-        if (movieList.deleteMovie(_movieTitle) == -1)
+        if (movieList.deleteMovie(convertToPascalCase(_movieTitle)) == -1)
         {
             cout << "Deleting movie was unsuccessful" << endl;
         }
@@ -218,7 +254,7 @@ ADMIN:
     }
 
 END:
-    printLogo();
+    cout << endl;
     cout << "Would you like to exit the program?" << endl;
     cout << "1. Yes" << endl;
     cout << "2. No" << endl;
