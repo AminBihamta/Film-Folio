@@ -7,6 +7,8 @@
 
 using namespace std;
 
+string clearCommand;
+
 string convertToPascalCase(string input)
 {
     string pascalCaseString;
@@ -69,7 +71,7 @@ L1:
 
 void printLogo()
 {
-    system("cls");
+    system(clearCommand.c_str());
     std::cout << "      ::::::::::       :::::::::::       :::          :::   :::        ::::::::::       ::::::::       :::        :::::::::::       ::::::::\n"
                  "     :+:                  :+:           :+:         :+:+: :+:+:       :+:             :+:    :+:      :+:            :+:          :+:    :+: \n"
                  "    +:+                  +:+           +:+        +:+ +:+:+ +:+      +:+             +:+    +:+      +:+            +:+          +:+    +:+  \n"
@@ -82,6 +84,18 @@ void printLogo()
 
 int main()
 {
+
+    cout << "Choose your operating system" << endl;
+    cout << "1. Windows" << endl;
+    cout << "2. Linux" << endl;
+    if (takeListInput(2) == 1)
+    {
+        clearCommand = "cls";
+    }
+    else
+    {
+        clearCommand = "clear";
+    }
     List movieList;
     movieList.readTextFile();
 
@@ -121,26 +135,36 @@ START:
         {
         case 1:
             printLogo();
+            cout << "Alphabetically sorted list!" << endl
+                 << endl;
             movieList.sort_Alphabetical();
             movieList.readAllMovies();
             break;
         case 2:
             printLogo();
+            cout << "Listed sorted based on rating!" << endl
+                 << endl;
             movieList.sort_Rating();
             movieList.readAllMovies();
             break;
         case 3:
             printLogo();
+            cout << "Listed sorted based on length!" << endl
+                 << endl;
             movieList.sort_Length();
             movieList.readAllMovies();
             break;
         case 4:
             printLogo();
+            cout << "Listed sorted based on release year!" << endl
+                 << endl;
             movieList.sort_ReleaseYear();
             movieList.readAllMovies();
             break;
         default:
             printLogo();
+            cout << "Listed sorted based on genre!" << endl
+                 << endl;
             movieList.sort_Genre();
             movieList.readAllMovies();
         }
