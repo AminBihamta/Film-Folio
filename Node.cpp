@@ -41,3 +41,31 @@ public:
     string getGenre() const { return movieGenre; }
     int getRating() const { return movieRating; }
 };
+
+void swapNodes(Node *node1, Node *node2)
+{
+    // Swap movieTitle
+    string tempTitle = node1->getTitle();
+    node1->setTitle(node2->getTitle());
+    node2->setTitle(tempTitle);
+
+    // Swap movieLengthMinutes
+    int tempLength = node1->getLength();
+    node1->setLength(node2->getLength());
+    node2->setLength(tempLength);
+
+    // Swap movieReleaseYear
+    int tempReleaseYear = node1->getReleaseYear();
+    node1->setReleaseYear(node2->getReleaseYear());
+    node2->setReleaseYear(tempReleaseYear);
+
+    // Swap movieGenre
+    string tempGenre = node1->getGenre();
+    node1->setGenre(node2->getGenre());
+    node2->setGenre(tempGenre);
+
+    // Swap movieRating
+    int tempRating = node1->getRating();
+    node1->setRating(node2->getRating());
+    node2->setRating(tempRating);
+}

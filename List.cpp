@@ -6,6 +6,7 @@
 #include "Node.cpp"
 using namespace std;
 
+// Helper function to swap entire nodes
 class List
 {
 private:
@@ -56,9 +57,9 @@ public:
     }
     void sort_Alphabetical()
     {
-        if (head == nullptr)
+        if (head == nullptr || head->next == nullptr)
         {
-            return;
+            return; // Already sorted or empty list
         }
 
         Node *current = head;
@@ -78,22 +79,21 @@ public:
                 temp = temp->next;
             }
 
-            // Swap only the title information, not entire nodes
-            string tempTitle = current->getTitle();
-            current->setTitle(minTitle->getTitle());
-            minTitle->setTitle(tempTitle);
+            // Swap entire nodes using the swapNodes function
+            swapNodes(current, minTitle);
 
             current = current->next;
         }
     }
+
     void sort_Rating()
     {
         Node *current = head;
         Node *index = nullptr;
 
-        if (!head)
+        if (!head || !head->next)
         {
-            return; // Empty list
+            return; // Already sorted or empty list
         }
 
         // Bubble sort algorithm for sorting based on rating in descending order
@@ -103,13 +103,11 @@ public:
 
             while (index != nullptr)
             {
-                // Compare ratings and swap if needed
+                // Compare ratings and swap entire nodes if needed
                 if (current->getRating() < index->getRating())
                 {
-                    // Swap only the rating information, not entire nodes
-                    int tempRating = current->getRating();
-                    current->setRating(index->getRating());
-                    index->setRating(tempRating);
+                    // Swap entire nodes
+                    swapNodes(current, index);
                 }
 
                 index = index->next;
@@ -120,9 +118,9 @@ public:
     }
     void sort_Length()
     {
-        if (head == nullptr)
+        if (head == nullptr || head->next == nullptr)
         {
-            return;
+            return; // Already sorted or empty list
         }
 
         Node *current = head;
@@ -131,26 +129,27 @@ public:
         while (current != nullptr)
         {
             next = current->next;
+
             while (next != nullptr)
             {
                 // Compare and swap based on movie length
                 if (current->getLength() > next->getLength())
                 {
-                    // Swap only the length information, not entire nodes
-                    int tempLength = current->getLength();
-                    current->setLength(next->getLength());
-                    next->setLength(tempLength);
+                    // Swap entire nodes using the swapNodes function
+                    swapNodes(current, next);
                 }
                 next = next->next;
             }
+
             current = current->next;
         }
     }
+
     void sort_ReleaseYear()
     {
-        if (head == nullptr)
+        if (head == nullptr || head->next == nullptr)
         {
-            return;
+            return; // Already sorted or empty list
         }
 
         Node *current = head;
@@ -159,23 +158,29 @@ public:
         while (current != nullptr)
         {
             next = current->next;
+
             while (next != nullptr)
             {
                 // Compare and swap based on release year
                 if (current->getReleaseYear() < next->getReleaseYear())
                 {
-                    // Swap only the release year information, not entire nodes
-                    int tempReleaseYear = current->getReleaseYear();
-                    current->setReleaseYear(next->getReleaseYear());
-                    next->setReleaseYear(tempReleaseYear);
+                    // Swap entire nodes using the swapNodes function
+                    swapNodes(current, next);
                 }
                 next = next->next;
             }
+
             current = current->next;
         }
     }
+
     void sort_Genre()
     {
+        if (head == nullptr || head->next == nullptr)
+        {
+            return; // Already sorted or empty list
+        }
+
         Node *current = head;
 
         while (current != nullptr)
@@ -193,14 +198,13 @@ public:
                 temp = temp->next;
             }
 
-            // Swap only the genre information, not entire nodes
-            string tempGenre = current->getGenre();
-            current->setGenre(minGenre->getGenre());
-            minGenre->setGenre(tempGenre);
+            // Swap entire nodes using the swapNodes function
+            swapNodes(current, minGenre);
 
             current = current->next;
         }
     }
+
     int createMovie(Node *_movie)
     {
         if (head == nullptr)
