@@ -91,18 +91,6 @@ int main()
     clearCommand = "cls"
 #endif
 
-    // cout << "Choose your operating system" << endl;
-    // cout << "1. Windows" << endl;
-    // cout << "2. Linux" << endl;
-    // if (takeListInput(2) == 1)
-    //{
-    //     clearCommand = "cls";
-    // }
-    // else
-    //{
-    //     clearCommand = "clear";
-    // }
-
     List movieList;
     movieList.readTextFile();
 
@@ -312,3 +300,15 @@ END:
         goto START;
     return 0;
 }
+
+// cout << "Choose your operating system" << endl;
+// cout << "1. Windows" << endl;
+// cout << "2. Linux" << endl;
+// if (takeListInput(2) == 1)
+//{
+//     clearCommand = "cls";
+// }
+// else
+//{
+//     clearCommand = "clear";
+// }
